@@ -52,9 +52,8 @@ CONFIG_RC = begin
 
 CONFIG = CONFIG_DEFAULT.merge!(CONFIG_RC)
 
-BUILDFILE = open(CONFIG["repo_root"] + "/build.sbt").read
-SCALDING_VERSION=BUILDFILE.match(/version\s*:=\s*\"([^\"]+)\"/)[1]
-SCALA_VERSION=BUILDFILE.match(/scalaVersion\s*:=\s*\"([^\"]+)\"/)[1]
+SCALDING_VERSION="0.8.2"
+SCALA_VERSION="2.9.2"
 
 if (!CONFIG["jar"])
   #what jar has all the depencies for this job
@@ -147,8 +146,7 @@ CLASSPATH =
 JARFILE =
   if OPTS[:jar]
     jarname = OPTS[:jar]
-    #highly Twitter specific here:
-    CONFIG["repo_root"] + "/dist/#{jarname}-deploy.jar"
+    jarname
   else
     CONFIG["jar"]
   end
